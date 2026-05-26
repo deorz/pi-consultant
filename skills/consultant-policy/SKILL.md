@@ -1,41 +1,27 @@
 ---
 name: consultant-policy
-description: Use when working as a small/local model with the pi-consultant Pi extension. Guides when to call consult_expert/consult_session, how to minimize disclosure, and when to record reusable lessons.
+description: Use only when the user explicitly asks to use the consultant-policy skill, invokes /skill:consultant-policy, or asks for pi-consultant policy. Covers consult_expert, consult_session, record_lesson, disclosure, advice handling, and lessons.
 ---
 
 # Consultant Policy
 
 Use this workflow when you are the primary worker model and the `consult_expert`, `consult_session`, and `record_lesson` tools are available.
 
-## Default Behavior
+## Scope
 
-Work independently first. Use normal local tools to inspect files, run targeted commands, and make small verified changes.
+This skill only covers the `pi-consultant` extension workflow. It explains when to use the extension tools, how much context to disclose, how to treat consultant advice, and when to record lessons.
 
-When the next safe step is clear, execute it yourself with available tools instead of asking the user to do it. Use the right tool for the object and task: inspect directories with listing/search tools, inspect files with file-reading tools, and run targeted read-only diagnostics when they are relevant.
+Do not call the consultant for routine questions, obvious fixes, or simple errors where the next step is already clear.
 
-Treat `grep`/`rg` exit code 1 with no output as "no matches found", not as a tool failure.
+## Extension Tools
 
-Do not call the consultant for routine file reading, obvious syntax fixes, or simple command failures with clear next steps.
+Use only the `pi-consultant` tools that are available in the current session:
 
-## Tool Discipline
+- `consult_expert` — focused advice from the configured consultant model.
+- `consult_session` — recovery guidance using the current Pi conversation branch gathered by the extension.
+- `record_lesson` — project-local reusable lessons after verified success.
 
-Only call tools that are actually available in the tool list. For this package, the expected tools are `consult_expert`, `consult_session`, and `record_lesson`.
-
-Tool arguments must match the schema exactly. Do not add explanatory fields such as `reason` unless the tool schema includes them.
-
-If a tool call fails validation or returns an error, do not claim success. Read the error, correct the next attempt, or change strategy.
-
-## Coding Guardrails
-
-When modifying code, follow these rules regardless of language, framework, or file type:
-
-1. Understand before editing. Identify and read the real source files that define the behavior you need to change. Do not edit guessed paths or placeholder locations.
-2. Prefer targeted edits over full rewrites. Use full-file writes only when you intentionally replace the entire file and have enough context to preserve required content.
-3. Do not invent placeholder code and present it as implementation. If a placeholder is unavoidable, explicitly say it is incomplete and stop before claiming progress.
-4. After every failed tool call, update your understanding. Do not claim the tool succeeded. Do not continue with the same assumption that caused the failure.
-5. After code changes, run the smallest relevant verification command available for the project, such as a targeted test, build, typecheck, or compile command.
-6. Do not claim a task is complete unless verification has run and the output supports the claim.
-7. If verification fails and the cause is not obvious after local inspection, use the appropriate consultation mode with the failing output, changed files, and attempted fix.
+Tool arguments must match each tool schema exactly.
 
 ## Consultation Modes
 
@@ -51,13 +37,11 @@ Use `consult_session` when:
 - you received a nudge recommending session consultation;
 - you are about to continue guessing.
 
-For `consult_session`, provide only a short `reason` and optional `focus`. The extension gathers recent session transcript and tool results automatically.
+For `consult_session`, provide only a short `reason` and optional `focus`. The extension gathers the current Pi conversation branch and existing tool results automatically. Use `maxEntries` only when an explicit privacy or cost cap is needed.
 
 ## How to Call `consult_expert`
 
-If the user explicitly asks you to consult the expert, do not ask the user to fill out the consultation form when enough context is already available. Build the consultation brief yourself from the current task, recent tool results, errors, attempted actions, and known constraints. Ask a clarifying question only when the missing information is essential and cannot be gathered with safe local tools.
-
-Send only the minimum context needed. Never include secrets, tokens, private keys, `.env` contents, or unrelated full files.
+Send only the minimum context needed for the question. Never include secrets, tokens, private keys, `.env` contents, or unrelated full files.
 
 Include:
 
@@ -80,17 +64,7 @@ Desired output: Give likely root causes and the next two diagnostics to run.
 
 Treat consultant advice as guidance, not proof. The consultant has no tool access and may have incomplete context.
 
-After receiving advice:
-
-1. If the consultant gives safe diagnostic/read-only commands, execute those commands yourself with available tools instead of asking the user to run them.
-2. Check the advice against local files and command output.
-3. Make the smallest reasonable change.
-4. Run targeted verification.
-5. Only claim success after evidence from local verification.
-
-Do not merely summarize consultant commands back to the user. Use the consultant advice to continue the task.
-
-If `consult_session` returns a recovery plan, follow the next exact safe steps unless they conflict with user instructions or local evidence.
+Check advice against local evidence before acting on it. If `consult_session` returns a recovery plan, use it as guidance unless it conflicts with user instructions or local evidence.
 
 ## When to Record Lessons
 

@@ -50,7 +50,7 @@ function validateConfigShape(raw: unknown, label: string, filePath: string, log:
 
   for (const error of Value.Errors(ConsultantConfigFileSchema, raw)) {
     log(
-      `[small-model-consultant] Config error in ${label} config at ${filePath}: ${error.instancePath || "(root)"} — ${error.message}`,
+      `[pi-consultant] Config error in ${label} config at ${filePath}: ${error.instancePath || "(root)"} — ${error.message}`,
     );
   }
   return undefined;
@@ -64,7 +64,7 @@ function readConfigFile(filePath: string, label: string, log: (message: string) 
     return validateConfigShape(raw, label, filePath, log);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    log(`[small-model-consultant] Failed to parse ${label} config at ${filePath}: ${message}`);
+    log(`[pi-consultant] Failed to parse ${label} config at ${filePath}: ${message}`);
     return undefined;
   }
 }

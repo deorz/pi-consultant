@@ -1,5 +1,5 @@
 {
-  "name": "small-model-consultant",
+  "name": "pi-consultant",
   "version": "0.1.0",
   "description": "Pi package for small-model worker workflows with a larger consultant model and durable lessons.",
   "type": "module",

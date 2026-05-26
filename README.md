@@ -1,4 +1,4 @@
-# Small Model Consultant for Pi
+# Pi-consultant extension
 
 A Pi package for workflows where a small/local worker model does most coding work and can consult a larger model for advice.
 

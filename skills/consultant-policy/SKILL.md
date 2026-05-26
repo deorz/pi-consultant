@@ -1,6 +1,6 @@
 ---
 name: consultant-policy
-description: Use when working as a small/local model with the small-model-consultant Pi extension. Guides when to call consult_expert/consult_session, how to minimize disclosure, and when to record reusable lessons.
+description: Use when working as a small/local model with the pi-consultant Pi extension. Guides when to call consult_expert/consult_session, how to minimize disclosure, and when to record reusable lessons.
 ---
 
 # Consultant Policy

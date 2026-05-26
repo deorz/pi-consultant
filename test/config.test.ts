@@ -11,7 +11,7 @@ import {
 } from "../extensions/consultant/config.js";
 
 async function makeConfigDirs() {
-  const root = await mkdtemp(join(tmpdir(), "small-model-consultant-config-"));
+  const root = await mkdtemp(join(tmpdir(), "pi-consultant-config-"));
   const agentDir = join(root, "agent");
   const cwd = join(root, "project");
   await mkdir(agentDir, { recursive: true });

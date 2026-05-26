@@ -10,7 +10,7 @@ A Pi package for workflows where a small/local worker model does most coding wor
 - `record_lesson` stores durable project-local lessons.
 - Relevant lessons are injected into future turns.
 - Conservative nudges warn about repeated tool errors and high context usage.
-- `consultant-policy` skill teaches worker models when to consult and when to record lessons.
+- `consultant-policy` skill documents extension-specific consultation policy when explicitly requested.
 
 ## Install locally
 
@@ -63,12 +63,22 @@ Authenticate with Pi before using subscription models:
 
 Select OpenAI/Codex if needed.
 
+## Current behavior reference
+
+See [`docs/current-state.md`](docs/current-state.md) for the canonical description of current extension behavior, configuration, nudges, privacy boundaries, and verification commands.
+
 ## Usage
 
-Ask the worker model to use the policy skill or rely on automatic skill loading:
+Ask the worker model explicitly when you want it to load the policy skill:
 
 ```text
 Use the consultant-policy skill while working on this task.
+```
+
+You can also invoke it directly if Pi skill commands are enabled:
+
+```text
+/skill:consultant-policy
 ```
 
 Manual consultation example:

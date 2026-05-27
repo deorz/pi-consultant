@@ -3,21 +3,52 @@
   "version": "0.1.0",
   "description": "Pi package for small-model worker workflows with a larger consultant model and durable lessons.",
   "type": "module",
-  "keywords": ["pi-package", "pi-extension", "consultant", "agent-skills"],
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "consultant",
+    "agent-skills"
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deorz/pi-consultant.git"
+  },
+  "bugs": {
+    "url": "https://github.com/deorz/pi-consultant/issues"
+  },
+  "homepage": "https://github.com/deorz/pi-consultant#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "extensions",
+    "skills",
+    "docs/current-state.md",
+    "README.md"
+  ],
   "pi": {
-    "extensions": ["./extensions/consultant.ts"],
-    "skills": ["./skills"]
+    "extensions": [
+      "./extensions/consultant.ts"
+    ],
+    "skills": [
+      "./skills"
+    ]
   },
   "scripts": {
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "node --test --import tsx test/*.test.ts",
-    "check": "npm run typecheck && npm test"
+    "check": "npm run typecheck && npm test",
+    "pack:check": "npm pack --dry-run"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^24.0.0",
+    "eslint": "^10.4.0",
     "tsx": "^4.20.0",
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.60.0"
   },
   "peerDependencies": {
     "@earendil-works/pi-ai": "*",

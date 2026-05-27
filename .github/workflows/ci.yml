@@ -1,16 +1,15 @@
-name: Publish npm package
+name: CI
 
 on:
-  release:
-    types: [published]
+  pull_request:
+  push:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
-  publish:
-    name: Publish to npm
+  check:
+    name: Lint, test, and pack
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org/
           cache: npm
 
       - name: Install dependencies
@@ -35,8 +33,3 @@ jobs:
 
       - name: Verify npm package contents
         run: npm run pack:check
-
-      - name: Publish to npm
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

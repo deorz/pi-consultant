@@ -12,6 +12,12 @@ A Pi package for workflows where a small/local worker model does most coding wor
 - Conservative nudges warn about repeated tool errors and high context usage.
 - `consultant-policy` skill documents extension-specific consultation policy when explicitly requested.
 
+## Install from npm
+
+```bash
+pi install npm:pi-consultant
+```
+
 ## Install locally
 
 ```bash
@@ -99,6 +105,33 @@ Record a lesson after verified success:
 
 ```text
 Use record_lesson with title "Run targeted tests first", problem "Full suite output hid the useful failure", successfulApproach "Run the smallest failing test first", confidence "high", tags ["testing"].
+```
+
+## Development
+
+Run local checks before opening a PR or publishing a release:
+
+```bash
+npm run lint
+npm run check
+npm run pack:check
+```
+
+## Publishing
+
+Publishing is handled by GitHub Actions when a GitHub Release is published.
+
+Release checklist:
+
+1. Bump the package version, for example with `npm version patch`, `npm version minor`, or `npm version major`.
+2. Publish a GitHub Release for that version.
+3. Ensure the repository has an `NPM_TOKEN` secret with publish access.
+4. The workflow publishes to npm with provenance.
+
+After the workflow succeeds, install with:
+
+```bash
+pi install npm:pi-consultant
 ```
 
 ## Memory

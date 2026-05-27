@@ -1,0 +1,27 @@
+{
+  "name": "pi-consultant",
+  "version": "0.1.0",
+  "description": "Pi package for small-model worker workflows with a larger consultant model and durable lessons.",
+  "type": "module",
+  "keywords": ["pi-package", "pi-extension", "consultant", "agent-skills"],
+  "license": "MIT",
+  "pi": {
+    "extensions": ["./extensions/consultant.ts"],
+    "skills": ["./skills"]
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test --import tsx test/*.test.ts",
+    "check": "npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  }
+}
